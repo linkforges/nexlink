@@ -2,6 +2,10 @@
   "name": "nexgen-affilates",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "npm@9",
+  "engines": {
+    "node": ">=18 <22"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
