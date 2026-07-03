@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String    @id @default(cuid())
+  name             String?
+  email            String    @unique
+  emailVerified    DateTime?
+  password         String?   // hashed
+  image            String?
+  gmail            String?
+  address          String?
+  apiToken         String?   @unique
+  
+  defaultDestinationUrl String?
+  defaultNote           String?
+  countryOffers         Json?    // { "US": { "offers": [...], "returning_behavior": {...} } }
+  
+  links      Link[]
+  domains    Domain[]
+  sessions   Session[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Link {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  name          String
+  slug          String
+  domain        String   // e.g., "track.yoursite.com" or "default"
+  destinationUrl String  // fallback
+  rotatorMode   String   @default("turbo") // "turbo" | "slow"
+  note          String?
+  
+  slowAccumulator Int    @default(0) // fallback for Redis
+  totalClicksCache Int   @default(0)
+  publicToken     String @unique @default(cuid())
+  
+  clicks     Click[]
+  clickLogs  ClickLog[]
+  geoBreakdown GeoBreakdown[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  deletedAt  DateTime?
+
+  @@unique([domain, slug])
+}
+
+model Click {
+  id           String   @id @default(cuid())
+  linkId       String
+  link         Link     @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  
+  visitorHash  String
+  country      String?
+  device       String?
+  browser      String?
+  os           String?
+  referrer     String?
+  isUnique     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+
+  @@index([linkId, createdAt])
+  @@index([visitorHash])
+}
+
+model ClickLog {
+  id           String   @id @default(cuid())
+  linkId       String
+  link         Link     @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  visitorHash  String
+  country      String?
+  device       String?
+  browser      String?
+  os           String?
+  referrer     String?
+  ip           String?
+  userAgent    String?
+  createdAt    DateTime @default(now())
+}
+
+model GeoBreakdown {
+  linkId    String
+  link      Link     @relation(fields: [linkId], references: [id], onDelete: Cascade)
+  country   String
+  clicks    Int      @default(0)
+  updatedAt DateTime @default(now())
+
+  @@id([linkId, country])
+}
+
+model Domain {
+  id                 String   @id @default(cuid())
+  userId             String
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  domain             String   @unique
+  verified           Boolean  @default(false)
+  verificationToken  String   @unique
+  createdAt          DateTime @default(now())
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expires      DateTime
+}
