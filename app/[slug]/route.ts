@@ -1,14 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 import { PrismaClient } from "@prisma/client/edge";
-import { withAccelerate } from "@prisma/extension-accelerate";
 import { isBot } from "@/lib/utils";
-import { getGeoData, isPrivateIP } from "@/lib/ip2location";
+import { getGeoData, isPrivateIP } from "@/lib/p2location";
 
 export const runtime = "edge";
 
 const redis = Redis.fromEnv();
-const prisma = new PrismaClient().$extends(withAccelerate());
+const prisma = new PrismaClient();
 
 function weightedRandomIndex(offers: { url: string; weight: number }[]): number {
   const total = offers.reduce((s, o) => s + o.weight, 0);
@@ -78,7 +77,8 @@ export async function GET(req: NextRequest) {
       if clicks > 0 then redis.call('set', KEYS[1], remainder) end
       return clicks
     `;
-    clicksToAdd = (await redis.eval(luaScript, [1], [`slow_acc:${link.id}`])) as number;
+    const clicks = await redis.eval(luaScript, [`slow_acc:${link.id}`], []);
+    clicksToAdd = Number(clicks);
   }
 
   if (clicksToAdd > 0) {

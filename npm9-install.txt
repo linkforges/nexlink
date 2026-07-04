@@ -1,0 +1,68 @@
+npm verb cli C:\Program Files\nodejs\node.exe C:\Users\robiu\AppData\Local\npm-cache\_npx\22cde22fc6b3fa8d\node_modules\npm\bin\npm-cli.js
+npm info using npm@9.9.4
+npm info using node@v24.18.0
+npm verb title npm install
+npm verb argv "install" "--legacy-peer-deps" "--ignore-scripts" "--loglevel" "verbose"
+npm verb logfile logs-max:10 dir:C:\Users\robiu\AppData\Local\npm-cache\_logs\2026-07-04T12_30_54_099Z-
+npm verb logfile C:\Users\robiu\AppData\Local\npm-cache\_logs\2026-07-04T12_30_54_099Z-debug-0.log
+npm http fetch GET 200 https://registry.npmjs.org/@auth%2fprisma-adapter 20ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/@prisma%2fclient 84ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/@radix-ui%2freact-avatar 10ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/@radix-ui%2freact-dropdown-menu 8ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/@radix-ui%2freact-label 7ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/@radix-ui%2freact-radio-group 8ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/@radix-ui%2freact-select 8ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/@radix-ui%2freact-switch 7ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/@radix-ui%2freact-slot 7ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/@radix-ui%2freact-tabs 9ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/@radix-ui%2freact-toast 8ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/@react-pdf%2frenderer 7ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/@upstash%2fredis 10ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/bcryptjs 6ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/class-variance-authority 6ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/clsx 6ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/csv-parse 7ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/lucide-react 8ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/next 58ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/next-auth 14ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/react 15ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/react-dom 16ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/recharts 18ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/resend 25ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/tailwind-merge 10ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/tailwindcss-animate 6ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/@types%2fbcryptjs 7ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/@types%2fnode 11ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/@types%2freact 9ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/@types%2freact-dom 8ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/autoprefixer 7ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/postcss 8ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/prisma 53ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/tailwindcss 19ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/tsx 9ms (cache hit)
+npm http fetch GET 200 https://registry.npmjs.org/typescript 26ms (cache hit)
+npm verb stack Error: Unsupported URL Type "workspace:": workspace:*
+npm verb stack     at unsupportedURLType (C:\Users\robiu\AppData\Local\npm-cache\_npx\22cde22fc6b3fa8d\node_modules\npm\node_modules\npm-package-arg\lib\npa.js:327:15)
+npm verb stack     at fromURL (C:\Users\robiu\AppData\Local\npm-cache\_npx\22cde22fc6b3fa8d\node_modules\npm\node_modules\npm-package-arg\lib\npa.js:387:13)
+npm verb stack     at npa.resolve (C:\Users\robiu\AppData\Local\npm-cache\_npx\22cde22fc6b3fa8d\node_modules\npm\node_modules\npm-package-arg\lib\npa.js:83:12)
+npm verb stack     at visit (C:\Users\robiu\AppData\Local\npm-cache\_npx\22cde22fc6b3fa8d\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:1020:39)
+npm verb stack     at visitNode (C:\Users\robiu\AppData\Local\npm-cache\_npx\22cde22fc6b3fa8d\node_modules\npm\node_modules\treeverse\lib\depth-descent.js:58:25)
+npm verb stack     at next (C:\Users\robiu\AppData\Local\npm-cache\_npx\22cde22fc6b3fa8d\node_modules\npm\node_modules\treeverse\lib\depth-descent.js:44:19)
+npm verb stack     at depth (C:\Users\robiu\AppData\Local\npm-cache\_npx\22cde22fc6b3fa8d\node_modules\npm\node_modules\treeverse\lib\depth-descent.js:83:10)
+npm verb stack     at depth (C:\Users\robiu\AppData\Local\npm-cache\_npx\22cde22fc6b3fa8d\node_modules\npm\node_modules\treeverse\lib\depth.js:27:12)
+npm verb stack     at #buildDepStep (C:\Users\robiu\AppData\Local\npm-cache\_npx\22cde22fc6b3fa8d\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:949:7)
+npm verb stack     at async Arborist.buildIdealTree (C:\Users\robiu\AppData\Local\npm-cache\_npx\22cde22fc6b3fa8d\node_modules\npm\node_modules\@npmcli\arborist\lib\arborist\build-ideal-tree.js:196:7)
+npm verb cwd c:\Users\robiu\Downloads\NexGen Affilates
+npm verb Windows_NT 10.0.26200
+npm verb node v24.18.0
+npm verb npm  v9.9.4
+npm ERR! code EUNSUPPORTEDPROTOCOL
+npm ERR! Unsupported URL Type "workspace:": workspace:*
+npm verb exit 1
+npm verb unfinished npm timer reify 1783168254692
+npm verb unfinished npm timer reify:loadTrees 1783168254697
+npm verb unfinished npm timer idealTree:buildDeps 1783168254712
+npm verb unfinished npm timer idealTree:#root 1783168254712
+npm verb code 1
+
+npm ERR! A complete log of this run can be found in: C:\Users\robiu\AppData\Local\npm-cache\_logs\2026-07-04T12_30_54_099Z-debug-0.log

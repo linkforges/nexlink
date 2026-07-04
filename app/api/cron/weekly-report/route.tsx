@@ -4,7 +4,7 @@ import { Resend } from "resend";
 import { renderToStream } from "@react-pdf/renderer";
 import { ReportPDF } from "@/components/reports/ReportPDF";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY as string);
 
 export async function GET(req: NextRequest) {
   const authHeader = req.headers.get("authorization");

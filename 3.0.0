@@ -1,0 +1,23 @@
+
+tailwindcss@4.3.2 | MIT | deps: none | versions: 2617
+A utility-first CSS framework for rapidly building custom user interfaces.
+https://tailwindcss.com
+
+dist
+.tarball: https://registry.npmjs.org/tailwindcss/-/tailwindcss-4.3.2.tgz
+.shasum: 408ee67d767a0fef7b174674bb9c5ce136a5ace1
+.integrity: sha512-WtctNNSH8A9jlMIqxzuYumOHU5uGZyRv0Q5svQl+oEPy5w84YpBxdb7MdqyiSPQge5jTJ6zFQLq0PFygdccSBA==
+.unpackedSize: 763.4 kB
+
+maintainers:
+- malfaitrobin <malfait.robin@gmail.com>
+- adamwathan <adam@adamwathan.me>
+- reinink <jonathan@reinink.ca>
+
+dist-tags:
+latest: 4.3.2
+insiders: 0.0.0-insiders.67c745e
+v3-lts: 3.4.19
+next: 4.0.0
+
+published 5 days ago by GitHub Actions <npm-oidc-no-reply@github.com>

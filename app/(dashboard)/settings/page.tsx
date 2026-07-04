@@ -22,7 +22,7 @@ interface CountryConfig {
   offers: Offer[];
   returning_behavior?: {
     enabled: boolean;
-    mode: "second_offer" | "round_robin";
+    mode?: "second_offer" | "round_robin";
   };
 }
 
@@ -62,9 +62,22 @@ export default function SettingsPage() {
 
   const updateOffer = (country: string, index: number, field: keyof Offer, value: string | number) => {
     setCountryOffers(prev => {
-      const updated = { ...prev };
-      updated[country].offers[index][field] = value as any;
-      return updated;
+      const config = prev[country];
+      if (!config) return prev;
+
+      return {
+        ...prev,
+        [country]: {
+          ...config,
+          offers: config.offers.map((offer, idx) =>
+            idx === index
+              ? field === "weight"
+                ? { ...offer, weight: Number(value) }
+                : { ...offer, url: String(value) }
+              : offer,
+          ),
+        },
+      };
     });
   };
 
@@ -187,13 +200,15 @@ export default function SettingsPage() {
                         <Switch
                           checked={config.returning_behavior?.enabled || false}
                           onCheckedChange={(checked) => {
-                            setCountryOffers(prev => {
-                              const updated = { ...prev };
-                              if (!updated[country].returning_behavior) {
-                                updated[country].returning_behavior = { enabled: false, mode: "second_offer" };
-                              }
-                              updated[country].returning_behavior.enabled = checked;
-                              return updated;
+                            setCountryOffers({
+                              ...countryOffers,
+                              [country]: {
+                                ...config,
+                                returning_behavior: {
+                                  enabled: checked,
+                                  mode: config.returning_behavior?.mode ?? "second_offer",
+                                },
+                              },
                             });
                           }}
                         />
@@ -202,12 +217,17 @@ export default function SettingsPage() {
                     </div>
                     {config.returning_behavior?.enabled && (
                       <RadioGroup
-                        value={config.returning_behavior.mode}
+                        value={config.returning_behavior?.mode}
                         onValueChange={(val) => {
-                          setCountryOffers(prev => {
-                            const updated = { ...prev };
-                            updated[country].returning_behavior.mode = val as "second_offer" | "round_robin";
-                            return updated;
+                          setCountryOffers({
+                            ...countryOffers,
+                            [country]: {
+                              ...config,
+                              returning_behavior: {
+                                ...config.returning_behavior,
+                                mode: val as "second_offer" | "round_robin",
+                              },
+                            },
                           });
                         }}
                         className="flex gap-4 mt-2"
