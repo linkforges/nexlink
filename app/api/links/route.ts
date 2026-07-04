@@ -5,7 +5,7 @@ import { slugify } from "@/lib/utils";
 
 export async function GET(req: NextRequest) {
   const session = await auth();
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const links = await prisma.link.findMany({
     where: { userId: session.user.id, deletedAt: null },
     select: {
@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
 
 export async function POST(req: NextRequest) {
   const session = await auth();
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const body = await req.json();
   const { name, destinationUrl, domain, slug, rotatorMode, note } = body;
   if (!name || !destinationUrl || !slug) {
