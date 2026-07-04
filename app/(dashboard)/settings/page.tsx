@@ -204,11 +204,11 @@ export default function SettingsPage() {
                               ...config,
                               returning_behavior: {
                                 enabled: checked,
-                                mode: config.returning_behavior?.mode ?? "second_offer",
+                                mode: config.returning_behavior?.mode === "round_robin" ? "round_robin" : "second_offer",
                               },
                             };
 
-                            setCountryOffers(prev => ({
+                            setCountryOffers((prev: Record<string, CountryConfig>) => ({
                               ...prev,
                               [country]: nextConfig,
                             }));
@@ -225,11 +225,11 @@ export default function SettingsPage() {
                             offers: config.offers,
                             returning_behavior: {
                               enabled: config.returning_behavior?.enabled ?? false,
-                              mode: val as "second_offer" | "round_robin",
+                              mode: val === "round_robin" ? "round_robin" : "second_offer",
                             },
                           };
 
-                          setCountryOffers(prev => ({
+                          setCountryOffers((prev: Record<string, CountryConfig>) => ({
                             ...prev,
                             [country]: nextConfig,
                           }));

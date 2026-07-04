@@ -5,7 +5,7 @@ import { redis } from "@/lib/redis";
 
 export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
   const session = await auth();
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const linkId = params.id;
   await prisma.link.update({
     where: { id: linkId, userId: session.user.id },

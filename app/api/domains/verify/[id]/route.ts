@@ -5,7 +5,7 @@ import dns from "dns/promises";
 
 export async function POST(req: NextRequest, { params }: { params: { id: string } }) {
   const session = await auth();
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!session?.user?.id) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   const domain = await prisma.domain.findUnique({
     where: { id: params.id, userId: session.user.id },
   });
