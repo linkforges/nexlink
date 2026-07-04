@@ -4,13 +4,17 @@ import { Resend } from "resend";
 import { renderToStream } from "@react-pdf/renderer";
 import { ReportPDF } from "@/components/reports/ReportPDF";
 
-const resend = new Resend(process.env.RESEND_API_KEY as string);
-
 export async function GET(req: NextRequest) {
   const authHeader = req.headers.get("authorization");
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
+
+  if (!process.env.RESEND_API_KEY) {
+    return NextResponse.json({ error: "Resend API key not configured" }, { status: 500 });
+  }
+
+  const resend = new Resend(process.env.RESEND_API_KEY);
 
   const users = await prisma.user.findMany({
     include: {

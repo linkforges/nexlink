@@ -1,10 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
-import { PrismaClient } from "@prisma/client/edge";
+import { PrismaClient } from "@prisma/client";
 import { isBot } from "@/lib/utils";
 import { getGeoData, isPrivateIP } from "@/lib/p2location";
-
-export const runtime = "edge";
 
 const redis = Redis.fromEnv();
 const prisma = new PrismaClient();

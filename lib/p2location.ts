@@ -33,7 +33,7 @@ export async function getGeoData(ip: string): Promise<GeoData | null> {
 
   // 1. Check Redis cache
   const cacheKey = `geo:${ip}`;
-  const cached = await redis.get(cacheKey);
+  const cached = await redis.get<string | null>(cacheKey);
   if (cached) {
     return JSON.parse(cached);
   }
