@@ -200,16 +200,18 @@ export default function SettingsPage() {
                         <Switch
                           checked={config.returning_behavior?.enabled || false}
                           onCheckedChange={(checked) => {
-                            setCountryOffers({
-                              ...countryOffers,
-                              [country]: {
-                                ...config,
-                                returning_behavior: {
-                                  enabled: checked,
-                                  mode: config.returning_behavior?.mode ?? "second_offer",
-                                },
+                            const nextConfig: CountryConfig = {
+                              ...config,
+                              returning_behavior: {
+                                enabled: checked,
+                                mode: config.returning_behavior?.mode ?? "second_offer",
                               },
-                            });
+                            };
+
+                            setCountryOffers(prev => ({
+                              ...prev,
+                              [country]: nextConfig,
+                            }));
                           }}
                         />
                         <span className="text-sm text-gray-300">Enable Returning Visitor Rotation</span>
@@ -219,15 +221,17 @@ export default function SettingsPage() {
                       <RadioGroup
                         value={config.returning_behavior?.mode}
                         onValueChange={(val) => {
+                          const nextConfig: CountryConfig = {
+                            offers: config.offers,
+                            returning_behavior: {
+                              enabled: config.returning_behavior?.enabled ?? false,
+                              mode: val as "second_offer" | "round_robin",
+                            },
+                          };
+
                           setCountryOffers(prev => ({
                             ...prev,
-                            [country]: {
-                              offers: config.offers,
-                              returning_behavior: {
-                                enabled: config.returning_behavior?.enabled ?? false,
-                                mode: val as "second_offer" | "round_robin",
-                              },
-                            } as CountryConfig,
+                            [country]: nextConfig,
                           }));
                         }}
                         className="flex gap-4 mt-2"

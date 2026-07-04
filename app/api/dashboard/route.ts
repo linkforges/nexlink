@@ -5,7 +5,9 @@ import { redis } from "@/lib/redis";
 
 export async function GET() {
   const session = await auth();
-  if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (!session?.user?.id) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
 
   const userId = session.user.id;
   const totalClicks = await prisma.link.aggregate({
@@ -29,8 +31,8 @@ export async function GET() {
   });
   let pendingUSA = 0;
   for (const link of slowLinks) {
-    const val = await redis.get(`slow_acc:${link.id}`);
-    pendingUSA += parseInt(val || "0");
+    const val = await redis.get<string | null>(`slow_acc:${link.id}`);
+    pendingUSA += parseInt(val || "0", 10);
   }
 
   const trend = await prisma.$queryRaw`
