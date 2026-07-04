@@ -113,7 +113,7 @@ export async function GET(req: NextRequest) {
       if (behavior.mode === "second_offer") {
         chosenIndex = offers.length > 1 ? 1 : 0;
       } else {
-        const availableIndices = offers.map((_: any, i: number) => i).filter(i => i !== 0);
+        const availableIndices = offers.map((_: any, i: number) => i).filter((i: number) => i !== 0);
         if (availableIndices.length === 0) availableIndices.push(0);
         const currentPos = availableIndices.indexOf(lastIndex);
         const nextPos = (currentPos + 1) % availableIndices.length;
