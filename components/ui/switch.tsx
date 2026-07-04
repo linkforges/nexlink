@@ -4,6 +4,7 @@ import { type InputHTMLAttributes, forwardRef } from "react";
 export interface SwitchProps extends Omit<InputHTMLAttributes<HTMLInputElement>, "onChange"> {
   checked?: boolean;
   onCheckedChange?: (checked: boolean) => void;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
