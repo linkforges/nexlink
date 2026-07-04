@@ -14,7 +14,11 @@ export default auth((req) => {
   const session = req.auth;
   const path = req.nextUrl.pathname;
 
-  if ((path.startsWith("/login") || path.startsWith("/register")) && session?.user) {
+  if (path.startsWith("/register")) {
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
+
+  if (path.startsWith("/login") && session?.user) {
     const callbackUrl = req.nextUrl.searchParams.get("callbackUrl") ?? "/dashboard";
     const safeRedirect = callbackUrl.startsWith("/") ? callbackUrl : "/dashboard";
     return NextResponse.redirect(new URL(safeRedirect, req.url));

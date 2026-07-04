@@ -71,10 +71,10 @@ export default async function Home() {
             <Link href="#workflow" className="transition hover:text-white">Workflow</Link>
             <Link href="/login" className="transition hover:text-white">Sign in</Link>
             <Link
-              href="/register"
+              href="/login"
               className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-5 py-3 font-semibold text-white transition hover:from-blue-500 hover:to-purple-500"
             >
-              Get started
+              Access dashboard
             </Link>
           </nav>
         </header>
@@ -93,10 +93,10 @@ export default async function Home() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
-                href="/register"
+                href="/login"
                 className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-4 text-sm font-semibold text-white transition hover:from-blue-500 hover:to-purple-500"
               >
-                Start free <ArrowRight className="ml-2 h-4 w-4" />
+                Access dashboard <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
               <Link
                 href="/login"

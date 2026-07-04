@@ -27,11 +27,6 @@ export default function LoginPage() {
   const callbackUrl = searchParams.get("callbackUrl") ?? "/dashboard";
   const safeRedirectTarget = callbackUrl.startsWith("/") ? callbackUrl : "/dashboard";
 
-  const handleGoogleSignIn = async () => {
-    setIsLoading(true);
-    await signIn("google", { callbackUrl: safeRedirectTarget });
-  };
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
@@ -82,8 +77,8 @@ export default function LoginPage() {
 
         <Card className="mx-auto w-full max-w-md border-white/10 bg-slate-950/70 shadow-2xl shadow-black/40 backdrop-blur-xl">
           <CardHeader className="space-y-2">
-            <CardTitle className="text-2xl font-semibold text-white">Welcome back</CardTitle>
-            <CardDescription className="text-sm text-slate-400">Sign in to continue managing your affiliate links.</CardDescription>
+            <CardTitle className="text-2xl font-semibold text-white">Access your workspace</CardTitle>
+            <CardDescription className="text-sm text-slate-400">Use the preconfigured admin account to continue managing your affiliate links.</CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit}>
             <CardContent className="space-y-4">
@@ -118,16 +113,9 @@ export default function LoginPage() {
               </Button>
             </CardContent>
           </form>
-          <CardFooter className="flex flex-col space-y-4 border-t border-white/10 pt-6">
-            <div className="relative w-full">
-              <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-slate-800" /></div>
-              <div className="relative flex justify-center text-[11px] uppercase tracking-[0.25em]"><span className="bg-slate-950 px-2 text-slate-500">Or continue with</span></div>
-            </div>
-            <Button type="button" variant="outline" onClick={handleGoogleSignIn} className="w-full border-white/10 bg-white/5 text-white hover:bg-white/10">
-              Continue with Google
-            </Button>
+          <CardFooter className="border-t border-white/10 pt-6">
             <p className="text-center text-sm text-slate-400">
-              Don&apos;t have an account? <Link href="/register" className="font-semibold text-blue-400 transition hover:text-blue-300">Create one</Link>
+              This workspace uses a single built-in administrator account.
             </p>
           </CardFooter>
         </Card>

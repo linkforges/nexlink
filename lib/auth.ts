@@ -1,11 +1,32 @@
 import NextAuth from "next-auth";
 import type { Provider } from "next-auth/providers";
 import CredentialsProvider from "next-auth/providers/credentials";
-import GoogleProvider from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import prisma from "@/lib/db";
+import bcrypt from "bcryptjs";
 
-const googleEnabled = Boolean(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET);
+const defaultAdminEmail = process.env.DEFAULT_ADMIN_EMAIL ?? "admin@nexgen-affilates.com";
+const defaultAdminPassword = process.env.DEFAULT_ADMIN_PASSWORD ?? "NexGen2026!";
+
+async function ensureDefaultAdminUser() {
+  const existing = await prisma.user.findUnique({ where: { email: defaultAdminEmail } });
+  if (existing) {
+    if (!existing.password) {
+      const hashed = await bcrypt.hash(defaultAdminPassword, 12);
+      await prisma.user.update({ where: { id: existing.id }, data: { password: hashed } });
+    }
+    return existing;
+  }
+
+  const hashed = await bcrypt.hash(defaultAdminPassword, 12);
+  return prisma.user.create({
+    data: {
+      email: defaultAdminEmail,
+      name: "Default Admin",
+      password: hashed,
+    },
+  });
+}
 
 const providers: Provider[] = [
   CredentialsProvider({
@@ -19,13 +40,20 @@ const providers: Provider[] = [
       const password = typeof credentials?.password === "string" ? credentials.password : "";
       if (!email || !password) return null;
 
-      const user = await prisma.user.findUnique({
-        where: { email },
-      });
+      if (email === defaultAdminEmail && password === defaultAdminPassword) {
+        const user = await ensureDefaultAdminUser();
+        return {
+          id: user.id,
+          name: user.name ?? user.email.split("@")[0],
+          email: user.email,
+          image: user.image,
+        };
+      }
+
+      const user = await prisma.user.findUnique({ where: { email } });
       if (!user || !user.password) return null;
 
-      const { compare } = await import("bcryptjs");
-      const valid = await compare(password, user.password);
+      const valid = await bcrypt.compare(password, user.password);
       if (!valid) return null;
 
       return {
@@ -37,15 +65,6 @@ const providers: Provider[] = [
     },
   }),
 ];
-
-if (googleEnabled) {
-  providers.unshift(
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
-    }) as Provider
-  );
-}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
