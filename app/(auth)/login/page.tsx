@@ -22,6 +22,10 @@ export default function LoginPage() {
     if (searchParams.get("registered") === "true") {
       setSuccessMessage("Account created successfully. Please sign in below.");
     }
+
+    if (searchParams.get("error")) {
+      setError("Authentication failed. Please use the built-in admin account.");
+    }
   }, [searchParams]);
 
   const callbackUrl = searchParams.get("callbackUrl") ?? "/dashboard";
