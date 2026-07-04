@@ -219,16 +219,16 @@ export default function SettingsPage() {
                       <RadioGroup
                         value={config.returning_behavior?.mode}
                         onValueChange={(val) => {
-                          setCountryOffers({
-                            ...countryOffers,
+                          setCountryOffers(prev => ({
+                            ...prev,
                             [country]: {
-                              ...config,
+                              offers: config.offers,
                               returning_behavior: {
-                                ...config.returning_behavior,
+                                enabled: config.returning_behavior?.enabled ?? false,
                                 mode: val as "second_offer" | "round_robin",
                               },
-                            },
-                          });
+                            } as CountryConfig,
+                          }));
                         }}
                         className="flex gap-4 mt-2"
                       >
