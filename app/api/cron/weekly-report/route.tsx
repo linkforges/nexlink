@@ -44,7 +44,7 @@ export async function GET(req: NextRequest) {
         {
           filename: `weekly-report-${user.id}.pdf`,
           content: pdfBuffer.toString("base64"),
-          contentType: "application/pdf",
+          content_type: "application/pdf",
         },
       ],
     });
