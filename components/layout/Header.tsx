@@ -14,24 +14,24 @@ import {
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-white/5 bg-[#0A0A0A]/80 backdrop-blur-xl px-4 lg:px-6">
+    <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b border-white/10 bg-slate-950/75 px-4 backdrop-blur-2xl lg:px-6">
       <div className="relative flex-1 max-w-md hidden sm:block">
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
         <Input
           placeholder="Search links..."
-          className="pl-9 bg-[#1A1A1A] border-gray-800 text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-blue-500/20 h-9 rounded-lg"
+          className="h-9 rounded-xl border-white/10 bg-slate-900/70 pl-9 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500/20"
         />
       </div>
 
       <div className="flex items-center gap-3 ml-auto">
-        <button className="relative p-2 rounded-lg hover:bg-white/5 transition-colors">
+        <button className="relative rounded-xl p-2 transition-colors hover:bg-white/5">
           <Bell className="h-4 w-4 text-gray-400" />
           <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-red-500 ring-2 ring-[#0A0A0A]" />
         </button>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-white/5 transition-colors">
+            <button className="flex items-center gap-2 rounded-xl px-2 py-1.5 transition-colors hover:bg-white/5">
               <Avatar className="h-8 w-8 border border-white/10">
                 <AvatarImage src="" />
                 <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-500 text-white text-xs">

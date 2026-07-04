@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://nexgen-affilates.vercel.app/sitemap.xml

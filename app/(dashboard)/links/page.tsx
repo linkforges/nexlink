@@ -58,40 +58,46 @@ export default function LinksPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between flex-wrap gap-4">
-        <h1 className="text-3xl font-bold tracking-tight">All Links</h1>
-        <div className="flex gap-2">
+      <div className="flex flex-wrap items-start justify-between gap-4 rounded-3xl border border-white/10 bg-slate-950/60 p-6 shadow-xl shadow-black/20 backdrop-blur-xl">
+        <div>
+          <p className="text-sm font-medium uppercase tracking-[0.3em] text-slate-400">Campaign library</p>
+          <h1 className="mt-2 text-3xl font-semibold tracking-tight text-white">All Links</h1>
+          <p className="mt-2 text-sm text-slate-400">Manage, analyze, and grow every offer with a unified workspace.</p>
+        </div>
+        <div className="flex flex-wrap gap-2">
           <Link href="/links/import">
-            <Button variant="outline" className="border-gray-700 text-gray-300 hover:bg-white/5">
+            <Button variant="outline" className="border-white/10 bg-white/5 text-slate-200 hover:bg-white/10">
               Import CSV
             </Button>
           </Link>
           <Link href="/links/create">
-            <Button className="bg-blue-600 hover:bg-blue-700">
+            <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500">
               <Plus className="mr-2 h-4 w-4" /> Create Link
             </Button>
           </Link>
         </div>
       </div>
 
-      <Input
-        placeholder="Search links..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="max-w-sm bg-[#1A1A1A] border-gray-800 text-white placeholder:text-gray-500"
-      />
+      <div className="rounded-3xl border border-white/10 bg-slate-950/60 p-4 shadow-lg shadow-black/20 backdrop-blur-xl">
+        <Input
+          placeholder="Search links..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="max-w-sm border-white/10 bg-slate-900/70 text-white placeholder:text-slate-500"
+        />
+      </div>
 
       <div className="grid gap-4">
         {filtered.length === 0 && (
-          <Card className="bg-[#1A1A1A] border-gray-800 text-center py-12">
-            <p className="text-gray-400">No links yet. Create your first one!</p>
+          <Card className="border-white/10 bg-slate-950/60 py-12 text-center shadow-lg shadow-black/20 backdrop-blur-xl">
+            <p className="text-slate-400">No links yet. Create your first one!</p>
           </Card>
         )}
         {filtered.map((link) => (
-          <Card key={link.id} className="bg-[#1A1A1A] border-gray-800 hover:border-gray-700 transition-all">
-            <CardContent className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div className="space-y-1">
-                <div className="flex items-center gap-2 flex-wrap">
+          <Card key={link.id} className="border-white/10 bg-slate-950/60 transition-all duration-200 hover:-translate-y-0.5 hover:border-blue-400/30 hover:shadow-[0_18px_60px_rgba(59,130,246,0.12)]">
+            <CardContent className="flex flex-col justify-between gap-4 p-4 sm:flex-row sm:items-center">
+              <div className="space-y-2">
+                <div className="flex flex-wrap items-center gap-2">
                   <span className="font-semibold text-white">{link.name}</span>
                   <Badge variant={link.rotatorMode === "turbo" ? "default" : "secondary"}>
                     {link.rotatorMode === "turbo" ? "⚡ Turbo" : "🐢 Slow"}
@@ -102,15 +108,15 @@ export default function LinksPage() {
                     </Badge>
                   )}
                 </div>
-                <div className="flex flex-wrap items-center gap-2 text-sm text-gray-400">
+                <div className="flex flex-wrap items-center gap-2 text-sm text-slate-400">
                   <span>https://{link.domain}/{link.slug}</span>
-                  <button onClick={() => copyToClipboard(`https://${link.domain}/${link.slug}`)} className="hover:text-white">
+                  <button onClick={() => copyToClipboard(`https://${link.domain}/${link.slug}`)} className="transition hover:text-white">
                     <Copy className="h-3 w-3" />
                   </button>
-                  <span className="text-xs bg-gray-800 px-2 py-0.5 rounded">{link.totalClicksCache} clicks</span>
+                  <span className="rounded bg-white/5 px-2 py-0.5 text-xs text-slate-300">{link.totalClicksCache} clicks</span>
                 </div>
               </div>
-              <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex flex-wrap items-center gap-2">
                 <Link href={`/links/${link.id}/analytics`}>
                   <Button variant="ghost" size="sm" className="text-blue-400 hover:text-blue-300">
                     <BarChart className="h-4 w-4" />

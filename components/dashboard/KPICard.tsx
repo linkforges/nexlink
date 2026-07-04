@@ -11,19 +11,19 @@ interface KPICardProps {
 
 export function KPICard({ title, value, icon: Icon, trend, subtitle }: KPICardProps) {
   return (
-    <Card className="bg-[#1A1A1A] border-gray-800 hover:border-gray-700 transition-all hover:shadow-xl hover:shadow-blue-500/5">
+    <Card className="border-white/10 bg-slate-950/70 transition-all duration-200 hover:-translate-y-1 hover:border-blue-400/30 hover:shadow-[0_18px_60px_rgba(59,130,246,0.15)]">
       <CardContent className="p-6">
-        <div className="flex items-center justify-between">
+        <div className="flex items-start justify-between gap-3">
           <div className="space-y-1">
-            <p className="text-sm font-medium text-gray-400">{title}</p>
-            <p className="text-2xl font-bold text-white">{value}</p>
-            {subtitle && <p className="text-xs text-gray-500">{subtitle}</p>}
+            <p className="text-sm font-medium text-slate-400">{title}</p>
+            <p className="text-2xl font-semibold text-white">{value}</p>
+            {subtitle && <p className="text-xs text-slate-500">{subtitle}</p>}
           </div>
-          <div className="h-10 w-10 rounded-lg bg-blue-500/10 flex items-center justify-center">
-            <Icon className="h-5 w-5 text-blue-400" />
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500/25 to-purple-500/25 text-blue-200">
+            <Icon className="h-5 w-5" />
           </div>
         </div>
-        {trend && <p className="text-xs text-green-400 mt-2">{trend} from last period</p>}
+        {trend && <p className="mt-3 text-xs font-medium text-emerald-400">{trend} from last period</p>}
       </CardContent>
     </Card>
   );

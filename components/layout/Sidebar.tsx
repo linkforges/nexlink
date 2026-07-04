@@ -40,7 +40,7 @@ export function Sidebar() {
       {/* Mobile Hamburger */}
       <button
         onClick={toggleSidebar}
-        className="fixed top-4 left-4 z-50 lg:hidden p-2 rounded-lg bg-[#0A0A0A] border border-white/10 text-white"
+        className="fixed left-4 top-4 z-50 rounded-xl border border-white/10 bg-slate-950/80 p-2 text-white shadow-lg shadow-black/30 backdrop-blur lg:hidden"
       >
         {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
       </button>
@@ -56,11 +56,11 @@ export function Sidebar() {
       {/* Sidebar */}
       <aside
         className={cn(
-          "fixed top-0 left-0 z-40 h-screen w-[260px] border-r border-white/5 bg-[#0A0A0A]/95 backdrop-blur-xl flex flex-col transition-transform duration-300 ease-in-out",
+          "fixed left-0 top-0 z-40 flex h-screen w-[260px] flex-col border-r border-white/10 bg-slate-950/85 backdrop-blur-2xl transition-transform duration-300 ease-in-out",
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
       >
-        <div className="flex h-16 items-center gap-2 px-6 border-b border-white/5">
+        <div className="flex h-16 items-center gap-2 border-b border-white/10 px-6">
           <div className="h-8 w-8 rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center shadow-lg shadow-blue-500/20">
             <Sparkles className="h-4 w-4 text-white" />
           </div>
@@ -78,10 +78,10 @@ export function Sidebar() {
                 href={item.href}
                 onClick={closeSidebar}
                 className={cn(
-                  "group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200 relative",
+                  "group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200",
                   isActive
-                    ? "text-white bg-blue-600/10"
-                    : "text-gray-400 hover:text-white hover:bg-white/5"
+                    ? "bg-gradient-to-r from-blue-600/20 to-purple-600/20 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]"
+                    : "text-slate-400 hover:bg-white/5 hover:text-white"
                 )}
               >
                 {isActive && (
@@ -102,8 +102,8 @@ export function Sidebar() {
           })}
         </nav>
 
-        <div className="border-t border-white/5 p-3">
-          <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-400 hover:text-red-400 hover:bg-red-500/10 transition-all duration-200 group">
+        <div className="border-t border-white/10 p-3">
+          <button className="group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-400 transition-all duration-200 hover:bg-red-500/10 hover:text-red-400">
             <LogOut className="h-4 w-4 text-gray-500 group-hover:text-red-400 transition-colors" />
             Logout
           </button>

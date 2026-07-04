@@ -11,11 +11,11 @@ export function GeoMap({ data }: GeoMapProps) {
   return (
     <ResponsiveContainer width="100%" height={250}>
       <BarChart data={sorted} layout="vertical">
-        <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-        <XAxis type="number" stroke="#888" fontSize={12} />
-        <YAxis dataKey="country" type="category" stroke="#888" fontSize={12} width={50} />
-        <Tooltip contentStyle={{ background: "#1A1A1A", border: "1px solid #333", borderRadius: "8px" }} />
-        <Bar dataKey="clicks" fill="#8b5cf6" radius={[0, 4, 4, 0]} />
+        <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+        <XAxis type="number" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
+        <YAxis dataKey="country" type="category" stroke="#94a3b8" fontSize={12} width={60} tickLine={false} axisLine={false} />
+        <Tooltip contentStyle={{ background: "#020617", border: "1px solid rgba(255,255,255,0.12)", borderRadius: "12px", color: "#f8fafc" }} />
+        <Bar dataKey="clicks" fill="#a78bfa" radius={[0, 4, 4, 0]} />
       </BarChart>
     </ResponsiveContainer>
   );
