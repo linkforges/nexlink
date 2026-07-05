@@ -79,9 +79,107 @@
     animation: pageFade 0.45s ease-out both;
   }
 
+  .ambient-orb {
+    animation: drift 10s ease-in-out infinite;
+  }
+
+  .hero-card-shadow {
+    box-shadow: 0 30px 80px rgba(2, 8, 23, 0.45);
+  }
+
+  .glass-card {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.92), rgba(30, 41, 59, 0.82));
+    box-shadow: 0 24px 80px rgba(8, 15, 32, 0.45);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+
+  .soft-border {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  }
+
+  .theme-ring {
+    box-shadow: 0 0 0 1px rgba(96, 165, 250, 0.28), 0 0 40px rgba(59, 130, 246, 0.18);
+  }
+
+  .frosted-panel {
+    background: linear-gradient(145deg, rgba(15, 23, 42, 0.82), rgba(2, 6, 23, 0.74));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 22px 80px rgba(2, 6, 23, 0.42);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+  }
+
+  .animate-float-slow {
+    animation: floatSlow 8s ease-in-out infinite;
+  }
+
+  .animate-float-slower {
+    animation: floatSlow 12s ease-in-out infinite;
+  }
+
+  .neon-button {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(34, 211, 238, 0.28);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 0 24px rgba(34, 211, 238, 0.18);
+    transition: transform 180ms ease, box-shadow 240ms ease, border-color 240ms ease;
+  }
+
+  .neon-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+  }
+
+  .neon-button:hover::before {
+    transform: translateX(100%);
+  }
+
+  .neon-button:hover {
+    transform: translateY(-1px) scale(1.01);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.08), 0 0 28px rgba(192, 132, 252, 0.3);
+    border-color: rgba(192, 132, 252, 0.35);
+  }
+
+  .particle-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 9999px;
+    background: radial-gradient(circle, rgba(34,211,238,0.95) 0%, rgba(34,211,238,0) 70%);
+    animation: particleFloat 12s linear infinite;
+    opacity: 0.55;
+  }
+
+  .particle::after {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
+    background: radial-gradient(circle, rgba(192,132,252,0.9), transparent 70%);
+    opacity: 0.35;
+  }
+
   @keyframes pageFade {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes drift {
+    0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+    50% { transform: translate3d(18px, -22px, 0) scale(1.06); }
   }
 }
 
@@ -116,6 +214,16 @@
   @keyframes float {
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-10px); }
+  }
+  @keyframes floatSlow {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-14px) scale(1.03); }
+  }
+
+  @keyframes particleFloat {
+    0% { transform: translate3d(0, 0, 0) scale(0.8); opacity: 0; }
+    20% { opacity: 0.55; }
+    100% { transform: translate3d(0, -120vh, 0) scale(1.2); opacity: 0; }
   }
   .custom-scrollbar::-webkit-scrollbar {
     width: 4px;

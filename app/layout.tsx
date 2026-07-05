@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { SessionProvider } from "next-auth/react";
 import { auth } from "@/lib/auth";
 import { MainLayout } from "@/components/layout/MainLayout";
 
@@ -85,7 +86,9 @@ export default async function RootLayout({
             }),
           }}
         />
-        {session ? <MainLayout>{children}</MainLayout> : children}
+        <SessionProvider session={session}>
+          {session ? <MainLayout>{children}</MainLayout> : children}
+        </SessionProvider>
       </body>
     </html>
   );

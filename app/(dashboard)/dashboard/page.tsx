@@ -28,28 +28,32 @@ export default function DashboardPage() {
   }, []);
 
   if (loading) return (
-    <div className="flex h-64 items-center justify-center rounded-3xl border border-white/10 bg-slate-950/60 p-8 text-slate-400 shadow-xl shadow-black/20 backdrop-blur-xl">
+    <div className="flex h-64 items-center justify-center rounded-[28px] border border-cyan-400/15 bg-slate-950/70 p-8 text-slate-300 shadow-[0_20px_80px_rgba(2,8,23,0.35)] backdrop-blur-xl">
       <div className="flex items-center gap-3">
-        <div className="h-2.5 w-2.5 animate-pulse rounded-full bg-blue-400" />
-        <span>Loading your workspace...</span>
+        <div className="h-2.5 w-2.5 animate-pulse rounded-full bg-cyan-400" />
+        <span>Loading your intelligent workspace...</span>
       </div>
     </div>
   );
 
-  if (!stats) return <div className="rounded-3xl border border-red-500/20 bg-red-500/10 p-6 text-red-300">Failed to load data</div>;
+  if (!stats) return <div className="rounded-[28px] border border-rose-500/20 bg-rose-500/10 p-6 text-rose-300">Failed to load data</div>;
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col gap-3 rounded-3xl border border-white/10 bg-slate-950/60 p-6 shadow-xl shadow-black/20 backdrop-blur-xl sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-blue-500/20 bg-blue-500/10 px-3 py-1 text-sm text-blue-200">
+      <div className="frosted-panel relative overflow-hidden rounded-[28px] p-6 sm:flex sm:items-end sm:justify-between">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(34,211,238,0.22),_transparent_30%),radial-gradient(circle_at_bottom_right,_rgba(192,132,252,0.2),_transparent_28%)]" />
+        <div className="relative">
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-200">
             <Sparkles className="h-4 w-4" />
             Growth command center
           </div>
-          <h1 className="text-3xl font-semibold tracking-tight text-white">Dashboard</h1>
-          <p className="mt-1 text-sm text-slate-400">A live view of your latest campaigns and audience behavior.</p>
+          <h1 className="text-3xl font-semibold tracking-tight text-white">AI Signal Dashboard</h1>
+          <p className="mt-2 max-w-2xl text-sm leading-7 text-slate-400">A live pulse of your campaign momentum, audience movement, and conversion signals across the last 30 days.</p>
         </div>
-        <p className="text-sm text-slate-400">Last 30 days</p>
+        <div className="relative mt-4 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-slate-300 sm:mt-0">
+          <span className="mr-2 inline-block h-2 w-2 rounded-full bg-emerald-400" />
+          Live • Auto-updating
+        </div>
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -60,13 +64,13 @@ export default function DashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
-        <Card className="border-white/10 bg-slate-950/70 shadow-[0_20px_80px_rgba(2,8,23,0.35)] backdrop-blur-xl lg:col-span-2">
+        <Card className="frosted-panel lg:col-span-2">
           <CardHeader>
             <CardTitle className="text-white">Click Trend</CardTitle>
           </CardHeader>
           <CardContent><ClickTrendChart data={stats.trendData} /></CardContent>
         </Card>
-        <Card className="border-white/10 bg-slate-950/70 shadow-[0_20px_80px_rgba(2,8,23,0.35)] backdrop-blur-xl">
+        <Card className="frosted-panel">
           <CardHeader>
             <CardTitle className="text-white">Geo Breakdown</CardTitle>
           </CardHeader>

@@ -17,6 +17,7 @@ export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [pointerPosition, setPointerPosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     if (searchParams.get("registered") === "true") {
@@ -27,6 +28,15 @@ export default function LoginPage() {
       setError("Authentication failed. Please use the built-in admin account.");
     }
   }, [searchParams]);
+
+  useEffect(() => {
+    const handleMove = (event: MouseEvent) => {
+      setPointerPosition({ x: event.clientX, y: event.clientY });
+    };
+
+    window.addEventListener("mousemove", handleMove);
+    return () => window.removeEventListener("mousemove", handleMove);
+  }, []);
 
   const callbackUrl = searchParams.get("callbackUrl") ?? "/dashboard";
   const safeRedirectTarget = callbackUrl.startsWith("/") ? callbackUrl : "/dashboard";
@@ -46,17 +56,30 @@ export default function LoginPage() {
       callbackUrl: safeRedirectTarget,
     });
 
-    if (result?.error) {
-      setError("We couldn't sign you in. Please check your email and password and try again.");
-      setIsLoading(false);
-    } else {
+    if (result?.ok) {
       router.replace(safeRedirectTarget);
+      router.refresh();
+      return;
     }
+
+    setError("We couldn't sign you in. Please check your email and password and try again.");
+    setIsLoading(false);
   };
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-[radial-gradient(circle_at_top_left,_rgba(59,130,246,0.2),_transparent_30%),radial-gradient(circle_at_bottom_right,_rgba(168,85,247,0.2),_transparent_32%),linear-gradient(135deg,_#020617_0%,_#0f172a_55%,_#111827_100%)] px-4 py-8 text-slate-50 sm:px-6 lg:px-8">
-      <div className="mx-auto grid max-w-6xl items-center gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="ambient-orb absolute left-[-8%] top-[-10%] h-56 w-56 rounded-full bg-blue-500/20 blur-3xl animate-float-slow" />
+        <div className="ambient-orb absolute bottom-[-10%] right-[-6%] h-72 w-72 rounded-full bg-purple-500/20 blur-3xl animate-float-slow" />
+        <div
+          className="absolute inset-0 opacity-70"
+          style={{
+            backgroundImage: `radial-gradient(circle at ${pointerPosition.x}px ${pointerPosition.y}px, rgba(96, 165, 250, 0.19), transparent 24%)`,
+          }}
+        />
+      </div>
+
+      <div className="relative mx-auto grid max-w-6xl items-center gap-8 lg:grid-cols-[1.05fr_0.95fr]">
         <div className="hidden lg:flex flex-col justify-center rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl shadow-black/30 backdrop-blur-xl">
           <div className="flex items-center gap-3">
             <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-purple-600 shadow-xl shadow-blue-500/20">
@@ -79,7 +102,7 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <Card className="mx-auto w-full max-w-md border-white/10 bg-slate-950/70 shadow-2xl shadow-black/40 backdrop-blur-xl">
+        <Card className="hero-card-shadow mx-auto w-full max-w-md border-white/10 bg-slate-950/70 shadow-2xl shadow-black/40 backdrop-blur-xl">
           <CardHeader className="space-y-2">
             <CardTitle className="text-2xl font-semibold text-white">Access your workspace</CardTitle>
             <CardDescription className="text-sm text-slate-400">Use the preconfigured admin account to continue managing your affiliate links.</CardDescription>
@@ -98,7 +121,7 @@ export default function LoginPage() {
               )}
               <div className="space-y-2">
                 <Label htmlFor="email" className="text-slate-200">Email</Label>
-                <Input id="email" name="email" type="email" placeholder="m@example.com" required className="border-white/10 bg-slate-900/80 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500/20" />
+                <Input id="email" name="email" type="email" placeholder="m@example.com" autoComplete="email" required className="border-white/10 bg-slate-900/80 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500/20" />
               </div>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
@@ -106,7 +129,7 @@ export default function LoginPage() {
                   <Link href="#" className="text-sm text-blue-400 transition hover:text-blue-300">Forgot?</Link>
                 </div>
                 <div className="relative">
-                  <Input id="password" name="password" type={showPassword ? "text" : "password"} placeholder="••••••••" required className="border-white/10 bg-slate-900/80 pr-10 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500/20" />
+                  <Input id="password" name="password" type={showPassword ? "text" : "password"} placeholder="••••••••" autoComplete="current-password" required className="border-white/10 bg-slate-900/80 pr-10 text-white placeholder:text-slate-500 focus:border-blue-500 focus:ring-blue-500/20" />
                   <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 transition hover:text-white">
                     {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                   </button>

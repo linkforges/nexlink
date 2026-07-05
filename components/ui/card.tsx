@@ -4,7 +4,7 @@ import { type HTMLAttributes, forwardRef } from "react";
 type CardProps = HTMLAttributes<HTMLDivElement>;
 
 export const Card = forwardRef<HTMLDivElement, CardProps>(({ className, ...props }, ref) => (
-  <div ref={ref} className={cn("rounded-3xl border border-white/10 bg-slate-950/70 shadow-[0_20px_80px_rgba(2,8,23,0.35)] backdrop-blur-xl", className)} {...props} />
+  <div ref={ref} className={cn("rounded-[24px] border border-white/10 bg-slate-950/70 shadow-[0_20px_85px_rgba(2,8,23,0.35)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.01] hover:border-cyan-400/40 hover:shadow-[0_24px_95px_rgba(2,8,23,0.42)]", className)} {...props} />
 ));
 Card.displayName = "Card";
 

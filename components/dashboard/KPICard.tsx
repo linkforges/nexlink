@@ -11,7 +11,7 @@ interface KPICardProps {
 
 export function KPICard({ title, value, icon: Icon, trend, subtitle }: KPICardProps) {
   return (
-    <Card className="border-white/10 bg-slate-950/70 transition-all duration-200 hover:-translate-y-1 hover:border-blue-400/30 hover:shadow-[0_18px_60px_rgba(59,130,246,0.15)]">
+    <Card className="group frosted-panel transition-all duration-300 hover:-translate-y-1.5 hover:scale-[1.01] hover:border-cyan-400/40">
       <CardContent className="p-6">
         <div className="flex items-start justify-between gap-3">
           <div className="space-y-1">
@@ -19,7 +19,7 @@ export function KPICard({ title, value, icon: Icon, trend, subtitle }: KPICardPr
             <p className="text-2xl font-semibold text-white">{value}</p>
             {subtitle && <p className="text-xs text-slate-500">{subtitle}</p>}
           </div>
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500/25 to-purple-500/25 text-blue-200">
+          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-cyan-500/25 to-fuchsia-500/25 text-cyan-100 transition-transform duration-300 group-hover:rotate-6 group-hover:scale-105">
             <Icon className="h-5 w-5" />
           </div>
         </div>

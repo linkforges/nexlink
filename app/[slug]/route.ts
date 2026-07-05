@@ -1,10 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Redis } from "@upstash/redis";
 import { PrismaClient } from "@prisma/client";
 import { isBot } from "@/lib/utils";
 import { getGeoData, isPrivateIP } from "@/lib/p2location";
+import { redis } from "@/lib/redis";
 
-const redis = Redis.fromEnv();
 const prisma = new PrismaClient();
 
 function weightedRandomIndex(offers: { url: string; weight: number }[]): number {
